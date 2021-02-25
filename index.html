@@ -1,1 +1,77 @@
-Hello World
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<style>
+.main {
+  /* make this the size of the window */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.theImage {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #333;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-transition: all 3s ease;
+  transition: all 3s ease;
+}
+
+button {
+  z-index: 100;
+  position: relative;
+  width: 200px;
+  height: 25px;
+  margin: 20px;
+}
+
+/* prefix with transition name */
+.slide-fade-enter-active {
+  opacity: 1;
+  z-index: 10;
+}
+
+.slide-fade-leave-active {
+  opacity: 1;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  opacity: 0;
+}
+</style>
+<div class="main" id="main">
+    <transition name="slide-fade">
+<!-- 			SRC comes from the array of images the :key is important for vue to believe its a 'new' DOM element and do the transition -->
+			<div class="theImage" v-bind:style="{'background-image': 'url(' + images[currentID] + ')'}" v-bind:key="currentID"></div>
+    </transition>
+	<button @click="toggleImage">
+      Toggle Image
+    </button>
+</div>
+<script>
+    new Vue({
+  el: "#main",
+  data: {
+		currentID: 0,
+    images: [
+'https://images.freeimages.com/images/large-previews/efb/lotus-flower-1382251.jpg',
+'https://images.freeimages.com/images/large-previews/ffa/water-lilly-1368676.jpg',
+'https://images.freeimages.com/images/large-previews/bfd/clouds-1371838.jpg'
+		]
+  },
+  methods: {
+    toggleImage: function(){
+       if(this.currentID < this.images.length-1){
+				 this.currentID +=1
+			 } else {
+				 this.currentID = 0
+			 } 	   
+    }
+  }
+});
+</script>
