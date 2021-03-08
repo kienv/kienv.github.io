@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "Onboard",
+    "description": "Onboard is a tab default that helps users to keep focus on work",
+    "version": "1.0",
+    "author": "Kie Vu",
+
+    "browser_action": {
+        "default_title": "Onboard page",
+        "default_icon" : "onboard.png",
+        "default_popup" : "popup.html"
+    },
+
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+
+    "icons": {
+        "64": "onboard.png"
+    },
+
+    "permissions": [
+        "activeTab",
+        "storage",
+        "topSites"
+    ]
+
+}
