@@ -3,7 +3,7 @@
     "name": "Onboard",
     "description": "Onboard is a tab default that helps users to keep focus on work",
     "version": "1.0",
-    "author": "Kie Vu",
+    "author": "Kien Vu",
 
     "browser_action": {
         "default_title": "Onboard page",
