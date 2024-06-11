@@ -1,0 +1,144 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e0f7fa;
+    background-image: url('background.jpg');
+    background-size: cover;
+    font-family: 'Games', sans-serif;
+}
+
+#password-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Games', sans-serif;
+}
+
+#password-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+    font-family: 'Games', sans-serif;
+}
+
+#startButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Games', sans-serif;
+}
+
+#startButton:hover {
+    background-color: #45a049;
+}
+
+#gameContainer {
+    display: none;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    border: 1px solid #000;
+}
+
+#infoBar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+#axolotl {
+    position: absolute;
+    width: 40px; /* initial size */
+    transition: transform 0.05s;
+}
+
+.fish {
+    position: absolute;
+}
+
+#gameOverScreen {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#gameOverText {
+    background: linear-gradient(to bottom, #ffcccc, #ff6666);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 48px;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
+    /* font-family: 'Arial', sans-serif; */
+    opacity: 0; /* Start with opacity 0 to make it initially invisible */
+    transition: opacity 0.5s ease-in-out; /* Add transition effect */
+}
+
+
+#restartButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-family: 'Games', sans-serif;
+}
+.explode {
+    position: absolute;
+    z-index: 100;
+}
+
+@keyframes plusOneAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.1); /* Start from very small size */
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5); /* Grow bigger */
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.1); /* Move up and shrink */
+    }
+}
+
+.plus-one-text {
+    position: absolute;
+    z-index: 100;
+    font-size: 20px;
+    color: green;
+    animation: plusOneAnimation 1s ease forwards; /* Apply animation */
+}

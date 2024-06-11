@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axolotl Game</title>
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="password-container">
+        <input type="password" id="password-input" placeholder="Enter Password">
+        <button id="startButton" onclick="startGame()">Start Game</button>
+    </div>
+    <div id="gameContainer">
+        <div id="infoBar">
+            <span id="scoreDisplay">Score: 0</span>
+            <span id="timeDisplay">Time: 0s</span>
+        </div>
+        <img id="axolotl" src="axolotl.gif" alt="axolotl">
+        <div id="gameOverScreen">
+            <div id="gameOverText">Game Over!<br>You scored <span id="score">0</span> points.</div>
+            <button id="restartButton" onclick="restartGame()">Start Again</button>
+        </div>
+        <!-- Fishes will be dynamically added here -->
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
