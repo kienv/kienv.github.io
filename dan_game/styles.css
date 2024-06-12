@@ -88,8 +88,8 @@ body {
 }
 
 #gameOverText {
-    background: linear-gradient(to bottom, #ffcccc, #ff6666);
-    color: white;
+    /* background: linear-gradient(to bottom, #ffcccc, #ff6666); */
+    color: rgb(236, 28, 28);
     padding: 40px;
     border-radius: 20px;
     margin-bottom: 20px;
@@ -127,18 +127,48 @@ body {
     }
     50% {
         opacity: 1;
-        transform: scale(1.5); /* Grow bigger */
+        transform: scale(2); /* Grow bigger */
     }
     100% {
         opacity: 0;
-        transform: translateY(-50px) scale(0.1); /* Move up and shrink */
+        transform: translateY(-80px) scale(0.1); /* Move up and shrink */
     }
 }
 
 .plus-one-text {
     position: absolute;
     z-index: 100;
-    font-size: 20px;
+    font-size: 40px;
     color: green;
     animation: plusOneAnimation 1s ease forwards; /* Apply animation */
+}
+
+.congrats-text {
+    position: absolute;
+    z-index: 100;
+    font-size: 20px;
+    color: blue;
+    animation: congratsAnimation 3s ease forwards;
+}
+
+@keyframes congratsAnimation {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+}
+.green-axolotl {
+    filter: hue-rotate(90deg); /* Change hue to green */
+}
+
+.red-axolotl {
+    filter: hue-rotate(0deg); /* Change hue to red */
 }

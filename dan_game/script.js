@@ -5,6 +5,8 @@ const gameOverScreen = document.getElementById('gameOverScreen');
 const scoreElement = document.getElementById('score');
 const scoreDisplay = document.getElementById('scoreDisplay');
 const timeDisplay = document.getElementById('timeDisplay');
+const gameOverText = document.getElementById('gameOverText');
+
 let axolotl = { x: 50, y: 50, size: 40, points: 0 };
 let fishes = [];
 let gameInterval, spawnInterval, timerInterval;
@@ -54,6 +56,7 @@ function resetGame() {
     axolotlElement.style.width = '40px';
     axolotlElement.style.left = '50px';
     axolotlElement.style.top = '50px';
+    axolotlElement.style.backgroundColor = ''; // Reset axolotl color
 }
 
 function updateTimer() {
@@ -63,14 +66,14 @@ function updateTimer() {
 
 function spawnFish() {
     const type = fishTypes[Math.floor(Math.random() * fishTypes.length)];
-    const size = type === 'clownfish' ? 30 : 40;
+    const size = type === 'clownfish' ? 70 : 70;
     const fishElement = document.createElement('img');
     fishElement.src = type === 'clownfish' ? 'clownfish.gif' : 'puffer-fish.gif';
     fishElement.className = 'fish';
-    fishElement.style.position = 'absolute';
     fishElement.style.width = `${size}px`;
-    fishElement.style.left = `${Math.random() * gameContainer.clientWidth}px`;
-    fishElement.style.top = `${Math.random() * gameContainer.clientHeight}px`;
+    fishElement.style.position = 'absolute';
+    fishElement.style.left = `${Math.random() * (gameContainer.clientWidth - size)}px`;
+    fishElement.style.top = `${Math.random() * (gameContainer.clientHeight - size)}px`;
     gameContainer.appendChild(fishElement);
 
     const directionX = Math.random() < 0.5 ? -1 : 1;
@@ -86,7 +89,16 @@ function spawnFish() {
         x: parseFloat(fishElement.style.left),
         y: parseFloat(fishElement.style.top)
     });
+
+    // Adjust spawn interval for puffer fishes
+    if (type === 'pufferfish') {
+        clearInterval(spawnInterval); // Clear the previous interval
+        spawnInterval = setInterval(spawnFish, 2000); // Set new interval for pufferfish
+    }
 }
+
+
+
 
 function gameLoop() {
     moveFishes();
@@ -137,6 +149,9 @@ function checkCollisions() {
                 setTimeout(() => {
                     gameContainer.removeChild(plusOneText);
                 }, 1000); // Remove after 1 second
+
+                // Check for color change
+                checkColorChange();
             } else if (fish.type === 'pufferfish') {
                 gameOver();
 
@@ -157,9 +172,29 @@ function checkCollisions() {
     }
 }
 
+function checkColorChange() {
+    if (axolotl.points === 5) {
+        axolotlElement.classList.add('green-axolotl');
+        showCongratulation('Congratulations! You reached 10 points.');
+    } else if (axolotl.points === 20) {
+        axolotlElement.classList.remove('green-axolotl');
+        axolotlElement.classList.add('red-axolotl');
+        showCongratulation('Congratulations! You reached 20 points.');
+    }
+}
 
 
-
+function showCongratulation(message) {
+    const congratsText = document.createElement('div');
+    congratsText.textContent = message;
+    congratsText.className = 'congrats-text';
+    congratsText.style.left = `${axolotl.x}px`;
+    congratsText.style.top = `${axolotl.y}px`;
+    gameContainer.appendChild(congratsText);
+    setTimeout(() => {
+        gameContainer.removeChild(congratsText);
+    }, 2000); // Remove after 2 seconds
+}
 
 function gameOver() {
     clearInterval(gameInterval);
@@ -167,12 +202,11 @@ function gameOver() {
     clearInterval(timerInterval);
     scoreElement.innerText = axolotl.points;
     gameOverScreen.style.display = 'block';
-    gameOverText.style.opacity = 1; 
+    gameOverText.style.opacity = 1;
 
     // Hide axolotl element
     axolotlElement.style.display = 'none';
 }
-
 
 function restartGame() {
     gameOverScreen.style.display = 'none';
