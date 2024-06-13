@@ -63,21 +63,20 @@ function updateTimer() {
     timeElapsed += 1;
     timeDisplay.textContent = `Time: ${timeElapsed}s`;
 }
-
 function spawnFish() {
     const type = fishTypes[Math.floor(Math.random() * fishTypes.length)];
-    const size = type === 'clownfish' ? 70 : 70;
+    const size = type === 'clownfish' ? 60 : 60;
     const fishElement = document.createElement('img');
     fishElement.src = type === 'clownfish' ? 'clownfish.gif' : 'puffer-fish.gif';
     fishElement.className = 'fish';
     fishElement.style.width = `${size}px`;
     fishElement.style.position = 'absolute';
-    fishElement.style.left = `${Math.random() * (gameContainer.clientWidth - size)}px`;
+    fishElement.style.left = `${gameContainer.clientWidth - size}px`; // Start from the right side
     fishElement.style.top = `${Math.random() * (gameContainer.clientHeight - size)}px`;
     gameContainer.appendChild(fishElement);
 
-    const directionX = Math.random() < 0.5 ? -1 : 1;
-    const directionY = Math.random() < 0.5 ? -1 : 1;
+    const directionX = -1; // Move left
+    const directionY = Math.random() < 0.5 ? -1 : 1; // Random initial vertical direction
 
     fishes.push({
         element: fishElement,
@@ -89,11 +88,27 @@ function spawnFish() {
         x: parseFloat(fishElement.style.left),
         y: parseFloat(fishElement.style.top)
     });
+}
 
-    // Adjust spawn interval for puffer fishes
-    if (type === 'pufferfish') {
-        clearInterval(spawnInterval); // Clear the previous interval
-        spawnInterval = setInterval(spawnFish, 2000); // Set new interval for pufferfish
+function moveFishes() {
+    for (let fish of fishes) {
+        fish.x += fish.speed * fish.directionX;
+        fish.y += fish.speed * fish.directionY;
+
+        // Reverse vertical direction if the fish hits the top or bottom edge
+        if (fish.y <= 0 || fish.y >= gameContainer.clientHeight - fish.size) {
+            fish.directionY *= -1;
+        }
+
+        // Remove fish if it moves out of the left edge
+        if (fish.x < -fish.size) {
+            gameContainer.removeChild(fish.element);
+            fishes.splice(fishes.indexOf(fish), 1);
+            continue;
+        }
+
+        fish.element.style.left = `${fish.x}px`;
+        fish.element.style.top = `${fish.y}px`;
     }
 }
 
@@ -105,22 +120,6 @@ function gameLoop() {
     checkCollisions();
 }
 
-function moveFishes() {
-    for (let fish of fishes) {
-        fish.x += fish.speed * fish.directionX;
-        fish.y += fish.speed * fish.directionY;
-
-        if (fish.x <= 0 || fish.x >= gameContainer.clientWidth - fish.size) {
-            fish.directionX *= -1;
-        }
-        if (fish.y <= 0 || fish.y >= gameContainer.clientHeight - fish.size) {
-            fish.directionY *= -1;
-        }
-
-        fish.element.style.left = `${fish.x}px`;
-        fish.element.style.top = `${fish.y}px`;
-    }
-}
 
 function checkCollisions() {
     for (let i = 0; i < fishes.length; i++) {
@@ -174,12 +173,26 @@ function checkCollisions() {
 
 function checkColorChange() {
     if (axolotl.points === 5) {
-        axolotlElement.classList.add('green-axolotl');
+        axolotlElement.className = 'blue-axolotl';
+        showCongratulation('Congratulations! You reached 5 points.');
+    } else if (axolotl.points === 10) {
+        axolotlElement.className = 'green-axolotl';
         showCongratulation('Congratulations! You reached 10 points.');
+    } else if (axolotl.points === 15) {
+        axolotlElement.className = 'yellow-axolotl';
+        showCongratulation('Congratulations! You reached 15 points.');
     } else if (axolotl.points === 20) {
-        axolotlElement.classList.remove('green-axolotl');
-        axolotlElement.classList.add('red-axolotl');
+        axolotlElement.className = 'red-axolotl';
         showCongratulation('Congratulations! You reached 20 points.');
+    } else if (axolotl.points === 25) {
+        axolotlElement.className = 'purple-axolotl';
+        showCongratulation('Congratulations! You reached 25 points.');
+    } else if (axolotl.points === 30) {
+        axolotlElement.className = 'orange-axolotl';
+        showCongratulation('Congratulations! You reached 30 points.');
+    } else if (axolotl.points === 35) {
+        axolotlElement.className = 'pink-axolotl';
+        showCongratulation('Congratulations! You reached 35 points.');
     }
 }
 

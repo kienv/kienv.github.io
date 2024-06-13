@@ -172,3 +172,24 @@ body {
 .red-axolotl {
     filter: hue-rotate(0deg); /* Change hue to red */
 }
+
+.blue-axolotl {
+    filter: hue-rotate(180deg); /* Change hue to blue */
+}
+
+.yellow-axolotl {
+    filter: hue-rotate(60deg); /* Change hue to yellow */
+}
+
+.purple-axolotl {
+    filter: hue-rotate(270deg); /* Change hue to purple */
+}
+
+.orange-axolotl {
+    filter: hue-rotate(30deg); /* Change hue to orange */
+}
+
+.pink-axolotl {
+    filter: hue-rotate(330deg); /* Change hue to pink */
+}
+
